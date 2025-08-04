@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace LogPerf;
 public class CsvBench
 {
     private static readonly string _file = Path.Combine(AppContext.BaseDirectory, "data.csv");
+    private static readonly byte[] _fileBytes = File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "data.csv"));
 
     [Benchmark(Baseline = true)]
     public int SplitTotal()
@@ -38,5 +40,30 @@ public class CsvBench
             sum += val;
         }
         return sum;
+    }
+
+    [Benchmark]
+    public int Utf8SpanTotal()
+    {
+        ReadOnlySpan<byte> data = _fileBytes;
+        int sum = 0;
+
+        while (!data.IsEmpty)
+        {
+            int lineEnd = data.IndexOf((byte)'\n');
+            ReadOnlySpan<byte> line = lineEnd >= 0 ? data[..lineEnd] : data;
+            data = lineEnd >= 0 ? data[(lineEnd + 1)..] : ReadOnlySpan<byte>.Empty;
+
+            for (int i = 0; i < 3; i++)
+            {
+                int comma = line.IndexOf((byte)',');
+                line = line[(comma + 1)..];
+            }
+
+            Utf8Parser.TryParse(line, out int salary, out _);
+            sum += salary;
+        }
+
+        return sum; 
     }
 }
