@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogPerf", "LogPerf.csproj", "{CAFC1E84-F580-5EE7-0098-8FD7DCEF1462}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAFC1E84-F580-5EE7-0098-8FD7DCEF1462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAFC1E84-F580-5EE7-0098-8FD7DCEF1462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAFC1E84-F580-5EE7-0098-8FD7DCEF1462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAFC1E84-F580-5EE7-0098-8FD7DCEF1462}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D7C291B-17EB-47DD-821B-24DE46A7D63E}
+	EndGlobalSection
+EndGlobal

@@ -1,8 +1,11 @@
 ﻿using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Running;
-using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-BenchmarkRunner.Run<HelloBench>();
+namespace LogPerf;
 
 [MemoryDiagnoser]
 public class HelloBench
@@ -16,6 +19,9 @@ public class HelloBench
     public char SpanName() => GetFieldSpan(_row, 1)[0];
 
     [Benchmark]
+    public int SpanSalary() => GetSalary(_row);
+
+    [Benchmark]
     public void Pause() => Thread.Sleep(10);
 
     private static string GetFieldSplit(string line, int column)
@@ -27,5 +33,16 @@ public class HelloBench
             line = line[(line.IndexOf(',') + 1)..];
         int next = line.IndexOf(',');
         return next == -1 ? line : line[..next];
+    }
+
+    private static int GetSalary(ReadOnlySpan<char> line)
+    {
+        for (int i = 0; i < 3; i++)
+            line = line[(line.IndexOf(',') + 1)..];
+
+        int value = 0;
+        foreach (char c in line)
+            value = value * 10 + (c - '0');
+        return value;
     }
 }
